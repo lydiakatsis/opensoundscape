@@ -249,6 +249,7 @@ class SingleTargetAudioDataset(torch.utils.data.Dataset):
         overlay_weight="random",
         audio_sample_rate=22050,
         debug=None,
+        bandpass_frequencies=None,
     ):
         self.df = df
         self.filename_column = filename_column
@@ -261,6 +262,8 @@ class SingleTargetAudioDataset(torch.utils.data.Dataset):
         self.extend_short_clips = extend_short_clips
         self.max_overlay_num = max_overlay_num
         self.overlay_prob = overlay_prob
+        self.bandpass_frequencies = bandpass_frequencies
+
         if (overlay_weight != "random") and (not 0 < overlay_weight < 1):
             raise ValueError(
                 f"overlay_weight not in 0<overlay_weight<1 (given overlay_weight: {overlay_weight})"
@@ -316,6 +319,8 @@ class SingleTargetAudioDataset(torch.utils.data.Dataset):
             mode: PIL image mode, e.g. "L" or "RGB" [default: RGB]
         """
         spectrogram = Spectrogram.from_audio(audio)
+        if self.bandpass_frequencies is not None:
+            spectrogram = spectrogram.bandpass(self.bandpass_frequencies)
         return spectrogram.to_image(shape=(self.width, self.height), mode=mode)
 
     def overlay_random_image(
