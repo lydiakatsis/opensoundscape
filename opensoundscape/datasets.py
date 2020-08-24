@@ -320,7 +320,7 @@ class SingleTargetAudioDataset(torch.utils.data.Dataset):
         """
         spectrogram = Spectrogram.from_audio(audio)
         if self.bandpass_frequencies is not None:
-            spectrogram = spectrogram.bandpass(self.bandpass_frequencies)
+            spectrogram = spectrogram.bandpass(self.bandpass_frequencies[0],self.bandpass_frequencies[1])
         return spectrogram.to_image(shape=(self.width, self.height), mode=mode)
 
     def overlay_random_image(
