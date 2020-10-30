@@ -22,6 +22,17 @@ For examples of some of the utilities offered, please see the "Tutorials" sectio
 OpenSoundscape can be installed either via pip (for users) or poetry (for
 developers contributing to the code). Either way, Python 3.7 or higher is required.
 
+
+## Installation for Windows (using Anaconda and Jupyter Notebook)
+
+* Create new virtual environment (Environments -> new)
+* Open cmd.exe
+* `pip install torch==1.5.0+cpu torchvision==0.6.0+cpu -f https://download.pytorch.org/whl/torch_stable.html`
+* `pip install opensoundscape==0.4.5`
+* `jupyter lab`
+
+
+
 ## Installation via pip (most users)
 
 ### Just give me the pip command!
